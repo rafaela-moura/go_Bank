@@ -57,11 +57,11 @@ class _ProfileViewState extends State<ProfileView> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   buildConfigureCard(AppPalette.purple, "\$200,25", "0914"),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   buildConfigureCard(AppPalette.pinklight, "\$570,50", "4051")
@@ -70,9 +70,7 @@ class _ProfileViewState extends State<ProfileView> {
             )),
         Positioned(
           top: -60,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
+          child: Container(
               width: MediaQuery.of(context).size.width,
               height: 300,
               decoration: BoxDecoration(
@@ -88,14 +86,18 @@ class _ProfileViewState extends State<ProfileView> {
                       onTap: () {
                         Navigator.pushReplacementNamed(context, RoutesApp.HOME);
                       },
-                      child: const Row(
-                        children: [
-                          Icon(Icons.arrow_back_ios_rounded,
-                              color: AppPalette.white, size: 20),
-                          Text("Voltar",
-                              style: TextStyle(
-                                  color: AppPalette.white, fontSize: 14)),
-                        ],
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 40,bottom: 10),
+                        child: Row(
+                          children: [
+                            Icon(Icons.arrow_back_ios_rounded,
+                                color: AppPalette.white, size: 20),
+                            SizedBox(width: 10,),
+                            Text("Voltar",
+                                style: TextStyle(
+                                    color: AppPalette.white, fontSize: 14)),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -108,7 +110,7 @@ class _ProfileViewState extends State<ProfileView> {
                         Container(
                           height: 97,
                           width: 97,
-                          padding: EdgeInsets.all(8-5),
+                          padding: const EdgeInsets.all(8-5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(75),
                             color: AppPalette.white,
@@ -146,7 +148,6 @@ class _ProfileViewState extends State<ProfileView> {
               ),
             ),
           ),
-        ),
       ]),
     );
   }
@@ -181,7 +182,7 @@ class _ProfileViewState extends State<ProfileView> {
         Container(
             height: 36,
             width: 36,
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: color),
             child: Image.asset(
@@ -194,20 +195,20 @@ class _ProfileViewState extends State<ProfileView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Mastercard',
-              style: const TextStyle(fontSize: 14, color: AppPalette.black),
+              style: TextStyle(fontSize: 14, color: AppPalette.black),
             ),
             Text(
               '**** ${num}',
-              style: TextStyle(fontSize: 12, color: AppPalette.gray2),
+              style: const TextStyle(fontSize: 12, color: AppPalette.gray2),
             ),
           ],
         ),
         Text(
           text,
           style:
-              TextStyle(color: AppPalette.primary, fontWeight: FontWeight.bold),
+              const TextStyle(color: AppPalette.primary, fontWeight: FontWeight.bold),
         ),
         const Icon(
           Icons.arrow_forward_ios,

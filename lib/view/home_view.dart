@@ -44,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
                   Navigator.pushReplacementNamed(context, RoutesApp.PROFILE);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 35),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +87,6 @@ class _HomeViewState extends State<HomeView> {
   Widget buildPanel() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         color: AppPalette.white1,
         borderRadius: BorderRadius.circular(20),
