@@ -13,6 +13,21 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  CardType _currentCardType = CardType.Card1;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,9 +93,10 @@ class _HomeViewState extends State<HomeView> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(left: 35, top: 15, bottom: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -122,23 +138,39 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
           ),
-          Container(
-            height: 200,
-            padding: const EdgeInsets.all(15),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                buildCard(AppPalette.pink, AppPalette.pink1, AppPalette.card1,
-                    "6212  2115  5234  0914", AppPalette.brown, CardType.Card1),
-                const SizedBox(width: 30),
-                buildCard(
-                    AppPalette.primary,
-                    AppPalette.card2,
-                    AppPalette.card3,
-                    "6212  2115  5234  4051",
-                    AppPalette.brown,
-                    CardType.Card2),
-              ],
+          Padding(
+            padding: const EdgeInsets.only(left: 35, right: 40),
+            child: Container(
+              height: 200,
+              child: PageView(
+                controller: _pageController,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  buildCard(
+                      AppPalette.pink,
+                      AppPalette.pink1,
+                      AppPalette.card1,
+                      "6212  2115  5234  0914",
+                      AppPalette.brown,
+                      CardType.Card1),
+                  buildCard(
+                      AppPalette.primary,
+                      AppPalette.card2,
+                      AppPalette.card3,
+                      "6212  2115  5234  4051",
+                      AppPalette.white1,
+                      CardType.Card2),
+                ],
+                onPageChanged: (int index) {
+                  setState(() {
+                    if (index == 0) {
+                      _currentCardType = CardType.Card1;
+                    } else if (index == 1) {
+                      _currentCardType = CardType.Card2;
+                    }
+                  });
+                },
+              ),
             ),
           ),
           const SizedBox(
@@ -169,9 +201,10 @@ class _HomeViewState extends State<HomeView> {
           const SizedBox(
             height: 10,
           ),
-          GestureDetector(onTap: () {
-            Navigator.pushReplacementNamed(context, RoutesApp.CURRENT);
-          },
+          GestureDetector(
+            onTap: () {
+              Navigator.pushReplacementNamed(context, RoutesApp.CURRENT);
+            },
             child: Container(
               height: 170,
               width: 335,
@@ -181,43 +214,81 @@ class _HomeViewState extends State<HomeView> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "Fatura atual",
-                        style: TextStyle(fontSize: 13.5, color: AppPalette.gray2),
+                        style: TextStyle(
+                            fontSize: 13.5,
+                            color: AppPalette.gray2,
+                            fontWeight: FontWeight.bold),
                       ),
-                      Text("R\$ 570,50",
-                          style:
-                              TextStyle(fontSize: 13.5, color: AppPalette.gray2)),
+                      Text(
+                        _currentCardType == CardType.Card1
+                            ? "R\$ 570,50"
+                            : 'R\$200,25',
+                        style: TextStyle(
+                            fontSize: 13.5,
+                            color: _currentCardType == CardType.Card1
+                                ? AppPalette.gray2
+                                : AppPalette.red,
+                            fontWeight: FontWeight.bold),
+                      )
                     ],
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          width: 189,
-                          height: 5,
-                          decoration: const BoxDecoration(
-                              color: AppPalette.primary,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(2),
-                                  bottomLeft: Radius.circular(2)))),
-                      Container(width: 50, height: 5, color: AppPalette.blue),
-                      Container(
-                          width: 20,
-                          height: 5,
-                          decoration: const BoxDecoration(
-                              color: AppPalette.yellow,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(2),
-                                  bottomRight: Radius.circular(2))))
-                    ],
-                  ),
+                  _currentCardType == CardType.Card1
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                width: 194,
+                                height: 5,
+                                decoration: const BoxDecoration(
+                                    color: AppPalette.primary,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(2),
+                                        bottomLeft: Radius.circular(2)))),
+                            Container(
+                                width: 49, height: 5, color: AppPalette.blue),
+                            Container(
+                                width: 28,
+                                height: 5,
+                                decoration: const BoxDecoration(
+                                    color: AppPalette.yellow,
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(2),
+                                        bottomRight: Radius.circular(2))))
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                width: 119,
+                                height: 5,
+                                decoration: const BoxDecoration(
+                                    color: AppPalette.primary,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(2),
+                                        bottomLeft: Radius.circular(2)))),
+                            Container(
+                                width: 75, height: 5, color: AppPalette.red),
+                            Container(
+                                width: 49, height: 5, color: AppPalette.blue),
+                            Container(
+                                width: 28,
+                                height: 5,
+                                decoration: const BoxDecoration(
+                                    color: AppPalette.yellow,
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(2),
+                                        bottomRight: Radius.circular(2))))
+                          ],
+                        ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -231,13 +302,15 @@ class _HomeViewState extends State<HomeView> {
                       RichText(
                         text: const TextSpan(
                           text: 'Lazer\n',
-                          style: TextStyle(fontSize: 11, color: AppPalette.black),
+                          style:
+                              TextStyle(fontSize: 11, color: AppPalette.black),
                           children: <TextSpan>[
                             TextSpan(
                                 text: 'Ebanx *Spotify\n',
                                 style: TextStyle(fontSize: 14)),
                             TextSpan(
-                                text: 'R\$ 8,50', style: TextStyle(fontSize: 14)),
+                                text: 'R\$ 8,50',
+                                style: TextStyle(fontSize: 14)),
                           ],
                         ),
                       ),
@@ -357,9 +430,10 @@ class _HomeViewState extends State<HomeView> {
 
   Widget buildCard(Color color1, Color color2, Color color3, String text,
       Color color4, CardType cardType) {
-    return GestureDetector(onTap: () {
-      Navigator.pushReplacementNamed(context, RoutesApp.CURRENT);
-    },
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushReplacementNamed(context, RoutesApp.CURRENT);
+      },
       child: Container(
         height: 178.41,
         width: 298,
