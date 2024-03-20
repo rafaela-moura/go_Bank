@@ -119,7 +119,7 @@ class _CurrentViewState extends State<CurrentView> {
               height: 607,
               color: AppPalette.white1,
               child: buildCurrent(),
-            )
+            ),
           ],
         ),
       ),

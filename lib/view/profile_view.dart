@@ -14,71 +14,21 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppPalette.white1,
-      body: Stack(children: [
-        Positioned(
-            top: MediaQuery.of(context).size.width/1.5,
-            left: 30,
-            right: 30,
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Geral",
-                    style: TextStyle(
-                        color: AppPalette.primary,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  buildConfigure("Configurar perfil"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildConfigure("Configurar conta"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildConfigure("Quero uma conta PJ"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildConfigure("Solicitar empréstimo"),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    "Configurar cartões",
-                    style: TextStyle(
-                        color: AppPalette.primary,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildConfigureCard(AppPalette.purple, "\$200,25", "0914"),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  buildConfigureCard(AppPalette.pinklight, "\$570,50", "4051")
-                ],
-              ),
-            )),
-        Positioned(
-          top: -60,
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(80),
-                color: AppPalette.primary,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 80, left: 20, right: 10),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(80),
+                      bottomRight: Radius.circular(80)),
+                  color: AppPalette.primary,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -87,12 +37,14 @@ class _ProfileViewState extends State<ProfileView> {
                         Navigator.pushReplacementNamed(context, RoutesApp.HOME);
                       },
                       child: const Padding(
-                        padding: EdgeInsets.only(left: 40,bottom: 10),
+                        padding: EdgeInsets.only(left: 45, bottom: 10, top: 20),
                         child: Row(
                           children: [
                             Icon(Icons.arrow_back_ios_rounded,
                                 color: AppPalette.white, size: 20),
-                            SizedBox(width: 10,),
+                            SizedBox(
+                              width: 10,
+                            ),
                             Text("Voltar",
                                 style: TextStyle(
                                     color: AppPalette.white, fontSize: 14)),
@@ -110,7 +62,7 @@ class _ProfileViewState extends State<ProfileView> {
                         Container(
                           height: 97,
                           width: 97,
-                          padding: const EdgeInsets.all(8-5),
+                          padding: const EdgeInsets.all(8 - 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(75),
                             color: AppPalette.white,
@@ -146,9 +98,64 @@ class _ProfileViewState extends State<ProfileView> {
                   ],
                 ),
               ),
-            ),
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Geral",
+                      style: TextStyle(
+                          color: AppPalette.primary,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    buildConfigure("Configurar perfil"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    buildConfigure("Configurar conta"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    buildConfigure("Quero uma conta PJ"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    buildConfigure("Solicitar empréstimo"),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    const Text(
+                      "Configurar cartões",
+                      style: TextStyle(
+                          color: AppPalette.primary,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    buildConfigureCard(AppPalette.purple, "\$200,25", "0914"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    buildConfigureCard(AppPalette.pinklight, "\$570,50", "4051")
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              )
+            ],
           ),
-      ]),
+        ),
+      ),
     );
   }
 
@@ -207,8 +214,8 @@ class _ProfileViewState extends State<ProfileView> {
         ),
         Text(
           text,
-          style:
-              const TextStyle(color: AppPalette.primary, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              color: AppPalette.primary, fontWeight: FontWeight.bold),
         ),
         const Icon(
           Icons.arrow_forward_ios,
